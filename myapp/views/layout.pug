@@ -1,7 +1,44 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title= pagetitle
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    script(src="/javascripts/menu.js")
+    link(rel="stylesheet", href="/stylesheets/style.css")
   body
-    block content
+    #menu
+      section#menuitems
+        .menubutton
+          h1.menubutton(onclick="menuToggle('hide')") &#9776;
+        a(href="/")
+          h3.menuhead Our Farm Stand
+        a(href="/tips")
+          h3.sectrule Tips for living well
+        a(href="/recipes")
+          h3 Recipes
+        a(href="/advice")
+          h3 Homesteading advice
+        a(href="/about")
+          h3.sectrule About Us
+        a(href="/contact")
+          h3 Contact Us
+    #container
+      #header
+        a(href="/")
+          h1.logo Dentist+
+        .headspace
+        h1.placeholder &#9776;
+        h2.navitem
+          a(href="/about")
+            .clickable-area Kalendarz
+        h2.navitem
+          a(href="/contact")
+            .clickable-area Wizyty
+        h2.navitem
+          a(href="/contact")
+            .clickable-area Pacjenci
+      block mainbody
+      
+      #footer
+        p Copyright &copy; 2023 Dentist+

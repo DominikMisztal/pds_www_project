@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Illnesses from "~/components/illnesses";
 import Teeth from "~/components/teeth";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
@@ -51,13 +52,15 @@ const VisitDetails = () => {
         </div>
         {view === "TEETH" && (
           <div className="container flex h-[calc(100vh-11rem)] items-center justify-center gap-12">
-            <div className="flex h-3/4 w-[36rem] items-center">
+            <div className="flex max-h-[75%] w-[36rem] items-center">
               <Teeth
                 upperTeeth={new Array<boolean>(16).fill(true)}
                 bottomTeeth={new Array<boolean>(16).fill(true)}
               ></Teeth>
             </div>
-            <div className="h-3/4 w-96 bg-gray-50">TU KIEDYŚ BĘDZIE TABELA</div>
+            <div className="h-3/4 w-[36rem] bg-gray-50">
+              <Illnesses></Illnesses>
+            </div>
           </div>
         )}
 

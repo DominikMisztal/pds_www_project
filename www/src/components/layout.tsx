@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
@@ -20,39 +21,45 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
           {/* empty div for creating gap */}
           <div className="w-96"></div>
           <div className="flex h-24 w-20 flex-col items-center pb-1">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
-              <Image
-                src={"chair.svg"}
-                alt="dentist chair"
-                width={60}
-                height={60}
-              ></Image>
-            </div>
+            <Link href="/visits">
+              <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
+                {" "}
+                <Image
+                  src={"chair.svg"}
+                  alt="dentist chair"
+                  width={60}
+                  height={60}
+                ></Image>
+              </div>
+            </Link>
             Wizyty
           </div>
           <div className="flex h-24 w-20 flex-col items-center pb-1">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
-              <Image
-                src={"patients.svg"}
-                alt="patients"
-                width={60}
-                height={60}
-              ></Image>
-            </div>
+            <Link href="/patients">
+              <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
+                {" "}
+                <Image
+                  src={"patients.svg"}
+                  alt="patients"
+                  width={60}
+                  height={60}
+                ></Image>
+              </div>
+            </Link>
             Pacjenci
           </div>
           <div className="flex h-24 w-20 flex-col items-center pb-1">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
-              <Image
-                src={"calendar.svg"}
-                alt="calendar"
-                width={60}
-                height={60}
-              ></Image>
-            </div>
+            <Link href="/calendar">
+              <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
+                {" "}
+                <Image
+                  src={"calendar.svg"}
+                  alt="calendar"
+                  width={60}
+                  height={60}
+                ></Image>
+              </div>
+            </Link>
             Kalendarz
           </div>
         </header>

@@ -1,6 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import Header from "./header";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {

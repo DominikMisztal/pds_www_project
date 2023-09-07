@@ -1,13 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const Header: React.FC = () => {
+const Header: React.FC<{ name?: string; age?: number }> = ({
+  name = "Jan Kowalski",
+  age = "33",
+}) => {
   return (
     <header className="flex h-24 w-full items-center gap-x-16 bg-gray-300 px-4">
       <div className="flex h-full w-1/2 items-center justify-start gap-16 pl-4">
         <div className="h-16 w-16 rounded-full bg-red-700"></div>
-        <div className="h-14 w-96 rounded-2xl bg-gray-400 p-3">
-          Jan Kowalski lat 33
+        <div className="flex h-14 w-96 items-center rounded-2xl bg-gray-400 p-3">
+          {`${name}, lat ${age}`}
         </div>
       </div>
 

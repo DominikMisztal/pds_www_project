@@ -26,7 +26,7 @@ const Teeth: React.FC<{
       {/* empty div for gap */}
       <div className="h-10"></div>
       <div className="container flex items-center justify-center gap-1">
-        {upperTeeth.map((isToothHealthy, index, teeth) => (
+        {bottomTeeth.map((isToothHealthy, index, teeth) => (
           <div key={index} className={`flex h-24 w-8 flex-col items-center`}>
             {index < teeth.length / 2
               ? Math.abs(teeth.length / 2 - index)

@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { useState } from "react";
 import Illnesses from "~/components/illnesses";
 import Teeth from "~/components/teeth";

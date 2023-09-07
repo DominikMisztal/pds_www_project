@@ -11,7 +11,9 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       </Head>
       <Header></Header>
 
-      <main className="min-h-[calc(100vh-6rem)] w-full">{children}</main>
+      <main className="min-h-[calc(100vh-4rem)] w-full lg:min-h-[calc(100vh-6rem)]">
+        {children}
+      </main>
     </>
   );
 };

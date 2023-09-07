@@ -16,22 +16,19 @@ const Visits: NextPage = () => {
             return (
               <div
                 key={visit.index}
-                className="flex h-20 w-full items-center border border-solid border-black px-10"
+                className="flex h-20 w-full items-center border border-solid border-black px-10 text-xs lg:text-base"
               >
-                {" "}
-                <div className="w-1/3"> {visit.date.toUTCString()}</div>
-                <div className="w-1/3">
-                  {" "}
-                  {visit.patient.name + " " + visit.patient.surname}{" "}
+                <div className="w-1/3 p-3 text-center">
+                  {visit.date.toUTCString()}
+                </div>
+                <div className="w-1/3 p-3 text-center">
+                  {visit.patient.name + " " + visit.patient.surname}
                 </div>
                 <div className="flex w-1/3 justify-end">
-                  {" "}
                   <Link href="/visit_details">
-                    {" "}
-                    <button className="h-10 w-28 rounded-full bg-blue-400">
-                      {" "}
-                      Szczegóły{" "}
-                    </button>{" "}
+                    <button className="h-8 w-16 rounded-full bg-blue-400 lg:h-10 lg:w-28">
+                      Szczegóły
+                    </button>
                   </Link>
                 </div>
               </div>

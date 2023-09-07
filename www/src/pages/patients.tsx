@@ -3,13 +3,13 @@ import { randomPatients } from "~/utils";
 
 const Patients: NextPage = () => {
   return (
-    <div className="container h-[calc(100vh-6rem)]">
+    <>
       <div className="h-16">
         {" "}
         Nie wiem co tu wstawić ale ten pasek pasuje do tego co mamy w figmie to
         coś tu będzie
       </div>
-      <div className="container flex h-[calc(100vh-10rem)] items-center justify-center bg-green-300">
+      <div className="flex h-[calc(100vh-10rem)] items-center justify-center bg-green-300">
         <div className="h-3/4 w-3/4 overflow-y-scroll bg-gray-200">
           {randomPatients.map((patient) => {
             return (
@@ -33,7 +33,7 @@ const Patients: NextPage = () => {
           })}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

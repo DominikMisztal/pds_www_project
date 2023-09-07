@@ -1,16 +1,16 @@
+import { NextPage } from "next";
 import { useState } from "react";
 import Illnesses from "~/components/illnesses";
 import Teeth from "~/components/teeth";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
 
-const VisitDetails = () => {
+const VisitDetails: NextPage = () => {
   const [view, setView] = useState<ViewState>("TEETH");
 
   return (
-    <main className="container h-[calc(100vh-6rem)]">
+    <>
       <div className="flex h-16 w-full items-center gap-10 px-10">
-        {" "}
         <div className="flex h-8 w-48 items-center justify-center rounded-full bg-gray-400">
           {" "}
           Karta pacjenta{" "}
@@ -51,7 +51,7 @@ const VisitDetails = () => {
           </button>
         </div>
         {view === "TEETH" && (
-          <div className="container flex h-[calc(100vh-11rem)] items-center justify-center gap-12">
+          <div className="flex h-[calc(100vh-11rem)] items-center justify-center gap-12">
             <div className="flex max-h-[75%] w-[36rem] items-center">
               <Teeth
                 upperTeeth={new Array<boolean>(16).fill(true)}
@@ -82,7 +82,7 @@ const VisitDetails = () => {
           </div>
         )}
       </div>
-    </main>
+    </>
   );
 };
 

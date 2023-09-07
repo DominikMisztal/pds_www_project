@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const Teeth: React.FC<{
   upperTeeth: boolean[];
   bottomTeeth: boolean[];

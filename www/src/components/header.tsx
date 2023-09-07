@@ -6,55 +6,52 @@ const Header: React.FC<{ name?: string; age?: number }> = ({
   age = "33",
 }) => {
   return (
-    <header className="flex h-24 w-full items-center gap-x-16 bg-gray-300 px-4">
-      <div className="flex h-full w-1/2 items-center justify-start gap-16 pl-4">
-        <div className="h-16 w-16 rounded-full bg-red-700"></div>
-        <div className="flex h-14 w-96 items-center rounded-2xl bg-gray-400 p-3">
+    <header className="flex h-16 w-full items-center gap-x-16 bg-gray-300 px-4 lg:h-24">
+      <div className="flex h-full w-1/2 items-center justify-start gap-5 lg:gap-16 lg:pl-4">
+        <div className="h-10 w-10 rounded-full bg-red-700 lg:h-16 lg:w-16"></div>
+        <div className="my-5 flex h-10 w-24 items-center rounded-2xl bg-gray-400 p-3 py-5 text-xs lg:h-14 lg:w-72 lg:text-base">
           {`${name}, lat ${age}`}
         </div>
       </div>
 
-      <div className="flex h-full w-1/2 items-center justify-end gap-16 pr-10">
-        <div className="flex h-24 w-20 flex-col items-center pb-1">
-          <Link href="/visits">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
+      <div className="flex h-full w-1/2 items-center justify-end gap-5 text-xs lg:gap-16 lg:pr-10 lg:text-base">
+        <div className="flex h-full w-10 flex-col items-center justify-center pb-1 lg:w-20">
+          <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
+            <Link href="/visits">
               <Image
                 src={"chair.svg"}
                 alt="dentist chair"
-                width={60}
-                height={60}
+                fill
+                className="p-1.5"
               ></Image>
-            </div>
-          </Link>
+            </Link>
+          </div>
           Wizyty
         </div>
-        <div className="flex h-24 w-20 flex-col items-center pb-1">
-          <Link href="/patients">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
+        <div className="flex h-full w-10 flex-col items-center justify-center pb-1 lg:w-20">
+          <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
+            <Link href="/patients">
               <Image
                 src={"patients.svg"}
                 alt="patients"
-                width={60}
-                height={60}
+                fill
+                className="p-1.5"
               ></Image>
-            </div>
-          </Link>
+            </Link>
+          </div>
           Pacjenci
         </div>
-        <div className="flex h-24 w-20 flex-col items-center pb-1">
-          <Link href="/calendar">
-            <div className="flex h-[4.5rem] w-24 items-center justify-center bg-green-500">
-              {" "}
+        <div className="flex h-full w-10 flex-col items-center justify-center pb-1 lg:w-20">
+          <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
+            <Link href="/calendar">
               <Image
                 src={"calendar.svg"}
                 alt="calendar"
-                width={60}
-                height={60}
+                fill
+                className="p-1.5"
               ></Image>
-            </div>
-          </Link>
+            </Link>
+          </div>
           Kalendarz
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import Illnesses from "~/components/illnesses";
+import Photos from "~/components/photos";
 import Teeth from "~/components/teeth";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
@@ -67,7 +68,7 @@ const VisitDetails: NextPage = () => {
         {view === "PHOTOS" && (
           <div className=" flex h-[calc(100vh-11rem)] items-center justify-center gap-12 bg-green-300">
             <div className="h-3/4 w-3/4 max-w-full bg-gray-50 lg:w-1/2">
-              TU KIEDYŚ BĘDĄ ZDJĘCIA
+              <Photos></Photos>
             </div>
           </div>
         )}

@@ -3,16 +3,35 @@ import Image from "next/image";
 import { Plus } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
-const Photos: React.FC = () => {
+const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [photosReadyToUpload, setPhotosReadyToUpload] = useState<string[]>([]);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const encoded = acceptedFiles.map((img) => URL.createObjectURL(img));
-    setPhotosReadyToUpload((photos) => [...photos, ...encoded]);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        setPhotosReadyToUpload((old) => [...old, base64]);
+        console.log(base64);
+        const response = await fetch(
+          `http://localhost:3001/database/upload_photo${visitId}`,
+          {
+            method: "post",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data: base64 }),
+          }
+        );
 
-    //TODO: send to backend and move to photos
-  }, []);
+        console.log(response);
+      };
+      acceptedFiles.map((img) => reader.readAsDataURL(img));
+    },
+    [visitId]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 

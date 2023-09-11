@@ -1,15 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const Header: React.FC<{ name?: string; age?: number }> = ({
-  name = "Jan Kowalski",
-  age = "33",
-}) => {
+const Header: React.FC = () => {
   return (
     <header className="flex h-16 w-full items-center gap-x-16 bg-gray-300 px-4 lg:h-24">
       <div className="flex h-full w-1/2 items-center justify-start gap-5 lg:gap-16 lg:pl-4">
-        <div className="h-10 w-10 rounded-full bg-red-700 lg:h-16 lg:w-16">XD</div>
-       
+        <div className="h-10 w-10 rounded-full bg-red-700 lg:h-16 lg:w-16"></div>
       </div>
 
       <div className="flex h-full w-1/2 items-center justify-end gap-5 text-xs lg:gap-16 lg:pr-10 lg:text-base">

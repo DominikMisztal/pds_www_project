@@ -1,11 +1,42 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
+type PhotosData = {
+  ID: number;
+  filename: string;
+  visitID: number;
+};
 const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [photosReadyToUpload, setPhotosReadyToUpload] = useState<string[]>([]);
+
+  //react runs useEffect twice in dev so this ref prevents fetching photos twice
+  const fetchedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (fetchedRef.current) {
+      return;
+    }
+
+    fetchedRef.current = true;
+    fetch(`http://localhost:3001/database/photos${visitId}`, {
+      mode: "cors",
+    })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((res) => res.json())
+      .then(({ data }: { data: PhotosData[]; meta: number }) => {
+        console.log(data);
+        data.forEach((photo) => {
+          setPhotos((old) => [
+            ...old,
+            `http://localhost:3001/${photo.filename}`,
+          ]);
+        });
+      })
+      .catch((e) => console.error(e));
+  }, [visitId]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {

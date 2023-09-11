@@ -24,6 +24,7 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
     fetchedRef.current = true;
     fetch(`http://localhost:3001/database/photos${visitId}`, {
       mode: "cors",
+      credentials: "include",
     })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((res) => res.json())

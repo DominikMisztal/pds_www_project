@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { Loader, Plus } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 
 type PhotosData = {
@@ -11,6 +11,7 @@ type PhotosData = {
 const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [photosReadyToUpload, setPhotosReadyToUpload] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   //react runs useEffect twice in dev so this ref prevents fetching photos twice
   const fetchedRef = useRef<boolean>(false);
@@ -33,6 +34,8 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
             ...old,
             `http://localhost:3001/${photo.filename}`,
           ]);
+
+          setIsLoading(false);
         });
       })
       .catch((e) => console.error(e));
@@ -66,6 +69,14 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center gap-2 text-xl">
+        <Loader className="animate-spin"></Loader>
+        Loading photos...
+      </div>
+    );
+  }
   return (
     <div className="grid h-full w-full auto-cols-max auto-rows-max grid-cols-1 gap-y-2 overflow-y-scroll p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
       {photos.map((item) => {

@@ -4,8 +4,11 @@ import { twMerge } from "tailwind-merge";
 import { calculateAge } from "~/utils";
 
 const NewPatientForm: React.FC<
-  HTMLAttributes<HTMLDivElement> & { onClose: () => void }
-> = ({ className, onClose }) => {
+  HTMLAttributes<HTMLDivElement> & {
+    onClose: () => void;
+    onSuccess: () => void;
+  }
+> = ({ className, onClose, onSuccess }) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const surnameRef = useRef<HTMLInputElement>(null);
   const birthdayRef = useRef<HTMLInputElement>(null);
@@ -24,31 +27,34 @@ const NewPatientForm: React.FC<
       <h2 className="text-center text-3xl font-extrabold">Nowy pacjent</h2>
       <form
         className="mt-8 space-y-6"
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={async (e: FormEvent) => {
+        onSubmit={(e: FormEvent) => {
           e.preventDefault();
 
-          const patient = {
-            name: nameRef.current?.value,
-            surname: surnameRef.current?.value,
-            birthday: birthdayRef.current?.value,
-            pesel: peselRef.current?.value,
-            gender: maleRef.current?.checked ? "MALE" : "FEMALE",
-            age: calculateAge(birthdayRef.current!.valueAsDate!),
+          const fetchData = async () => {
+            const patient = {
+              name: nameRef.current?.value,
+              surname: surnameRef.current?.value,
+              birthday: birthdayRef.current?.value,
+              pesel: peselRef.current?.value,
+              gender: maleRef.current?.checked ? "MALE" : "FEMALE",
+              age: calculateAge(birthdayRef.current!.valueAsDate!),
+            };
+
+            const res = await fetch("http://localhost:3001/database/patient", {
+              method: "POST",
+              credentials: "include",
+              body: JSON.stringify(patient),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            if (res.ok) {
+              onSuccess();
+            }
           };
 
-          const res = await fetch("http://localhost:3001/database/patient", {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify(patient),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (res.ok) {
-            onClose();
-          }
+          fetchData().catch((e) => console.error(e));
         }}
       >
         <div>

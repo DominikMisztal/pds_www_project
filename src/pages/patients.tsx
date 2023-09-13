@@ -14,6 +14,10 @@ const Patients: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (!isLoading) {
+      return;
+    }
+
     const fetchUsers = async () => {
       const res = await fetch(`http://localhost:3001/database/my_patients`, {
         credentials: "include",
@@ -32,7 +36,7 @@ const Patients: NextPage = () => {
     fetchUsers().catch((e) => {
       console.error(e);
     });
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
@@ -41,6 +45,10 @@ const Patients: NextPage = () => {
           <NewPatientForm
             className="z-20"
             onClose={() => setIsUserAddingPatient(false)}
+            onSuccess={() => {
+              setIsUserAddingPatient(false);
+              setIsLoading(true);
+            }}
           ></NewPatientForm>
         </div>
       )}
@@ -55,7 +63,7 @@ const Patients: NextPage = () => {
         </button>
       </div>
       <div className="flex h-[calc(100vh-10rem)] items-center justify-center bg-green-300">
-        {isLoading ? (
+        {!patients && isLoading ? (
           <Loading></Loading>
         ) : (
           <PatientsList patients={patients}></PatientsList>

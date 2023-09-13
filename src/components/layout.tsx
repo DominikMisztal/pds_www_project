@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Header from "./header";
 import { useSession } from "~/context/sessionProvider";
-import { Loader } from "lucide-react";
 import Login from "./login";
+import Loading from "./loading";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { isLoading, isLoggedIn } = useSession();
@@ -18,7 +18,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
       {isLoading && (
         <div className="flex h-screen w-screen items-center justify-center gap-2 text-xl text-black">
-          <Loader className="animate-spin"></Loader> Loading...
+          <Loading></Loading>
         </div>
       )}
 

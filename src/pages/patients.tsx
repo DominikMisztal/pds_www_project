@@ -1,12 +1,38 @@
 import { Plus } from "lucide-react";
 import { type NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from "~/components/loading";
 import NewPatientForm from "~/components/new_patient";
-import { randomPatients } from "~/utils";
+import PatientsList from "~/components/patients";
+import { type Patient } from "~/utils";
 
 const Patients: NextPage = () => {
   const [isUserAddingPatient, setIsUserAddingPatient] =
     useState<boolean>(false);
+
+  const [patients, setPatients] = useState<Patient[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch(`http://localhost:3001/database/my_patients`, {
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        const { data } = (await res.json()) as {
+          data: Patient[];
+          meta: number;
+        };
+        setPatients(data);
+        setIsLoading(false);
+      }
+    };
+
+    fetchUsers().catch((e) => {
+      console.error(e);
+    });
+  }, []);
 
   return (
     <>
@@ -29,25 +55,11 @@ const Patients: NextPage = () => {
         </button>
       </div>
       <div className="flex h-[calc(100vh-10rem)] items-center justify-center bg-green-300">
-        <div className="h-3/4 w-3/4 overflow-y-scroll bg-gray-200">
-          {randomPatients.map((patient) => {
-            return (
-              <div
-                key={patient.index}
-                className="flex h-20 w-full items-center border border-solid border-black px-10"
-              >
-                <div className="w-1/2">
-                  {patient.name + " " + patient.surname}
-                </div>
-                {/* empty div for gap */}
-                <div className="w-3/4"></div>
-                <button className="h-10 w-28 rounded-full bg-blue-400">
-                  Wizyty
-                </button>
-              </div>
-            );
-          })}
-        </div>
+        {isLoading ? (
+          <Loading></Loading>
+        ) : (
+          <PatientsList patients={patients}></PatientsList>
+        )}
       </div>
     </>
   );

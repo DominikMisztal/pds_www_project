@@ -37,7 +37,6 @@ const NewPatientForm: React.FC<
             age: calculateAge(birthdayRef.current!.valueAsDate!),
           };
 
-          console.log(patient);
           const res = await fetch("http://localhost:3001/database/patient", {
             method: "POST",
             credentials: "include",

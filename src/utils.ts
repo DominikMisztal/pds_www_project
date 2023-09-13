@@ -1,7 +1,11 @@
 export type Patient = {
-  index: number;
+  id: number;
   name: string;
   surname: string;
+  age: number;
+  birthday: Date;
+  pesel: string;
+  gender: "MALE" | "FEMALE";
 };
 
 export type Visit = {
@@ -11,12 +15,60 @@ export type Visit = {
 };
 
 export const randomPatients = [
-  { index: 0, name: "Adam", surname: "Awokado" },
-  { index: 1, name: "Jan", surname: "Pietruszka" },
-  { index: 2, name: "Anna", surname: "Bakłażan" },
-  { index: 3, name: "Bartosz", surname: "Dynia" },
-  { index: 4, name: "Julia", surname: "Cebula" },
-  { index: 5, name: "Stefan", surname: "Papryka" },
+  {
+    id: 0,
+    name: "Adam",
+    surname: "Awokado",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "MALE",
+  },
+  {
+    id: 1,
+    name: "Jan",
+    surname: "Pietruszka",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "MALE",
+  },
+  {
+    id: 2,
+    name: "Anna",
+    surname: "Bakłażan",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "FEMALE",
+  },
+  {
+    id: 3,
+    name: "Bartosz",
+    surname: "Dynia",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "MALE",
+  },
+  {
+    id: 4,
+    name: "Julia",
+    surname: "Cebula",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "FEMALE",
+  },
+  {
+    id: 5,
+    name: "Stefan",
+    surname: "Papryka",
+    birthday: new Date(),
+    age: 0,
+    pesel: "121233112",
+    gender: "MALE",
+  },
 ] as Patient[];
 
 export const randomVisits = [

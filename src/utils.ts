@@ -27,3 +27,17 @@ export const randomVisits = [
   { index: 4, date: new Date(2022, 6, 11, 19, 20), patient: randomPatients[4] },
   { index: 5, date: new Date(2023, 7, 21, 19, 20), patient: randomPatients[5] },
 ] as Visit[];
+
+export const calculateAge = (birthday: Date) => {
+  const now = new Date();
+  let years = now.getFullYear() - birthday.getFullYear();
+  let months = now.getMonth() - birthday.getMonth();
+  const days = now.getDay() - birthday.getDay();
+  if (days < 0) {
+    months -= 1;
+  }
+  if (months < 0) {
+    years -= 1;
+  }
+  return years;
+};

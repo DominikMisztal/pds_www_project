@@ -82,7 +82,7 @@ const NewVisitForm: React.FC<
       )}
     >
       <X className="cursor-pointer hover:stroke-gray-500" onClick={onClose}></X>
-      <h2 className="text-center text-3xl font-extrabold">Nowy pacjent</h2>
+      <h2 className="text-center text-3xl font-extrabold">Nowa wizyta</h2>
       <form
         className="mt-8 space-y-6"
         onSubmit={(e: FormEvent) => {
@@ -90,12 +90,14 @@ const NewVisitForm: React.FC<
 
           const fetchData = async () => {
             const patient = {
-              date: dateRef.current?.valueAsDate,
-              patient: patientRef.current?.value,
-              lengthRef: patientRef.current?.valueAsNumber,
+              date: dateRef.current?.valueAsDate
+                ?.toISOString()
+                .substring(0, 10),
+              patient: patientRef.current?.value.split(".")[0],
+              duration: lengthRef.current?.valueAsNumber,
             };
 
-            const res = await fetch("http://localhost:3001/database/patient", {
+            const res = await fetch("http://localhost:3001/database/visit", {
               method: "POST",
               credentials: "include",
               body: JSON.stringify(patient),
@@ -145,7 +147,7 @@ const NewVisitForm: React.FC<
             {patients?.map((patient) => (
               <option
                 key={patient.id}
-                value={patient.name + " " + patient.surname}
+                value={`${patient.id}. ${patient.name} ${patient.surname}`}
               ></option>
             ))}
           </datalist>
@@ -165,8 +167,6 @@ const NewVisitForm: React.FC<
           <input
             id="length"
             type="number"
-            min="10"
-            max="180"
             required
             className="mt-1 w-full rounded-md border p-2"
             ref={lengthRef}

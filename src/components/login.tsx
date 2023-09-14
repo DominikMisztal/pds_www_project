@@ -35,7 +35,7 @@ const Login = () => {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email Address
+            Adres e-mail
           </label>
           <input
             id="email"
@@ -51,7 +51,7 @@ const Login = () => {
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Password
+            Hasło
           </label>
           <input
             id="password"
@@ -67,7 +67,7 @@ const Login = () => {
             type="submit"
             className="group relative flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
-            Log In
+            Zaloguj
           </button>
         </div>
       </form>

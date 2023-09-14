@@ -94,7 +94,7 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
         return (
           <div
             key={item}
-            className="relative h-33 w-33 rounded-xl border-5 border-blue-400 p-3 aspect-ratio-1/1"
+            className="relative h-25 w-33 rounded-xl border-5 border-blue-400 p-3 "
             onClick={() => openEnlargedPhoto(item)}
           >
             <Image src={item} fill alt="photo" className="rounded-xl"></Image>
@@ -106,7 +106,7 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
         return (
           <div
             key={item}
-            className="relative  h-33 w-33 rounded-xl border-4 border-blue-400 p-3 aspect-ratio-1/1"
+            className="relative  h-25 w-33 rounded-xl border-4 border-blue-400 p-3 "
             onClick={() => openEnlargedPhoto(item)}
           >
             <Image src={item} fill alt="photo" ></Image>
@@ -117,8 +117,8 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
 
       {enlargedPhoto && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" onClick={closeEnlargedPhoto}>
-          <div className="max-w-4xl bg-white p-4 rounded-lg">
-            <img src={enlargedPhoto} alt="enlarged-photo"    />
+         <div className="bg-white p-4 rounded-xl max-h-[75%] max-w-[75%]  ">
+            <img src={enlargedPhoto} alt="enlarged-photo"  className="rounded-xl" style={ { height : "100%",  width: "100%" , aspectRatio: "1/1" } }  />
           </div>
         </div>
       )}

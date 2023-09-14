@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 
- const DayPicker = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date()); 
-
-    const handleDateClick = (date :Date) => {
-        setSelectedDate(date);
+ const DayPicker : React.FC<{ selectedDate:Date | undefined , setDate : (selectedDate : Date)=> void }> = ( { selectedDate , setDate}) => {
+        
+    
+    const handleDateClick = (date : Date) => {
+        setDate(date);
     };
 
     const renderCalendar = () => {
@@ -24,14 +24,14 @@ import React, { useState } from 'react';
     
         for (let day = 1; day <= daysInMonth; day++) {
           const date = new Date(currentYear, currentMonth, day);
-            const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+            const isSelected = selectedDate && selectedDate.toDateString() === date.toDateString();
       
           days.push(
             <div
               key={day}
               onClick={() => handleDateClick(date)}
               className={`text-center cursor-pointer p-2 ${
-                isSelected ? 'bg-blue-500 text-white rounded-full' : ''
+                isSelected ? 'bg-green-500 text-white rounded-full' : ''
               }`}
             >
               {day}

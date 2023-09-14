@@ -5,15 +5,19 @@ import { useState } from "react";
 import DayPicker from "~/components/dayPicker";
 import { randomVisits } from "~/utils";
 
+
+
 const CalendarPage: NextPage = () => {
   
-  const [selected, setSelected] = useState<Date>();
-  let footer = <p>Please pick a day.</p>;
+  const [selected, setSelected] = useState<Date>( );
+
   return  <div className="flex h-[calc(100vh-10rem)] w-full items-center justify-center bg-green-500">
     <div className="h-[90%] w-[90%]  flex flex-col sm:flex-col lg:flex-row  sm:w-100%  rounded-xl">
       <div className="flex-1 h-full w-full ">
 
-        <DayPicker/>
+        <DayPicker selectedDate ={ selected}  setDate ={
+          (date: Date) => setSelected( date ) 
+        } />
 
 
 

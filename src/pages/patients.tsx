@@ -1,10 +1,11 @@
 import { Plus } from "lucide-react";
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loading from "~/components/loading";
 import NewPatientForm from "~/components/new_patient";
 import PatientsList from "~/components/patients";
-import { type Patient } from "~/utils";
+import { ITEMS_PER_PAGE, type Patient } from "~/utils";
+import { useInView } from "react-intersection-observer";
 
 const Patients: NextPage = () => {
   const [isUserAddingPatient, setIsUserAddingPatient] =
@@ -12,31 +13,59 @@ const Patients: NextPage = () => {
 
   const [patients, setPatients] = useState<Patient[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isNextPageAvailable, setIsNextPageAvailable] = useState<boolean>(true);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+
+  const [ref, inView] = useInView();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (inView) {
+      setIsLoading(true);
+      console.log("inView");
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    if (!isLoading || !isNextPageAvailable) {
       return;
     }
 
-    const fetchUsers = async () => {
-      const res = await fetch(`http://localhost:3001/database/my_patients`, {
-        credentials: "include",
-      });
+    const controller = new AbortController();
+
+    const fetchUsers = async (page: number) => {
+      const res = await fetch(
+        `http://localhost:3001/database/my_patients?page=${page}`,
+        {
+          credentials: "include",
+          signal: controller.signal,
+        }
+      );
 
       if (res.ok) {
-        const { data } = (await res.json()) as {
+        const { data, meta } = (await res.json()) as {
           data: Patient[];
-          meta: number;
+          meta: { page: string };
         };
-        setPatients(data);
+
+        console.log(meta);
         setIsLoading(false);
+        setPageNumber(+meta.page + 1);
+        setIsNextPageAvailable(data.length === ITEMS_PER_PAGE);
+
+        setPatients((old) =>
+          old
+            ? [...old.slice(0, (+meta.page - 1) * ITEMS_PER_PAGE), ...data]
+            : data
+        );
       }
     };
 
-    fetchUsers().catch((e) => {
+    fetchUsers(pageNumber).catch((e) => {
       console.error(e);
     });
-  }, [isLoading]);
+
+    return () => controller.abort();
+  }, [isLoading, inView, pageNumber, isNextPageAvailable]);
 
   return (
     <>
@@ -47,6 +76,8 @@ const Patients: NextPage = () => {
             onClose={() => setIsUserAddingPatient(false)}
             onSuccess={() => {
               setIsUserAddingPatient(false);
+              setPageNumber((old) => old - 1);
+              setIsNextPageAvailable(true);
               setIsLoading(true);
             }}
           ></NewPatientForm>
@@ -66,7 +97,9 @@ const Patients: NextPage = () => {
         {!patients && isLoading ? (
           <Loading></Loading>
         ) : (
-          <PatientsList patients={patients}></PatientsList>
+          <>
+            <PatientsList patients={patients} ref={ref}></PatientsList>
+          </>
         )}
       </div>
     </>

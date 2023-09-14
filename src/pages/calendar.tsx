@@ -73,25 +73,33 @@ const CalendarPage: NextPage = () => {
       <div className="flex-1 h-full w-full ">
         <div className="w-[90%] h-3/4 mx-auto mt-8 p-4 border rounded-lg shadow-lg bg-green-300 rounded-xl">
             <div className="w-[100%] h-[100%] bg-green-200 rounded-xl">
-              <div className="h-[100%] w-[100%] overflow-y-scroll bg-green-200">
-                  { visits ? visits.map((visit, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="flex h-20 w-full items-center border border-solid border-black px-10 text-xs lg:text-base"
-                    >
-                      <div className="w-1/2 p-3 text-center">
-                          {new Date(visit.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </div>
-                      <div className="w-1/2 p-3 text-center">
-                        {visit.name + " " + visit.surname}
-                      </div>
-                    
-                    </div>
-                  );
-                }) : <div className="flex h-[100%] items-center justify-center bg-green-300 "> <Loading/> </div>
-                                
-                }
+              <div className="h-[100%] w-[100%] overflow-y-scroll bg-green-300">
+              {visits  ? visits.filter((visit) => {
+                              const visitDate = new Date(visit.date);
+                              return (
+                                selected &&
+                                visitDate.getDate() === selected.getDate() &&
+                                visitDate.getMonth() === selected.getMonth() &&
+                                visitDate.getFullYear() === selected.getFullYear()
+                              );
+                            }).map((visit, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex h-20 w-full items-center border-4 rounded-2xl border-solid border-green-300 px-10 text-xs lg:text-base bg-green-200"
+                                >
+                                  <div className="w-1/2 p-3 text-center">
+                                    {new Date(visit.date).toLocaleTimeString([], {
+                                      hour: '2-digit',
+                                      minute: '2-digit',
+                                    })}
+                                  </div>
+                                  <div className="w-1/2 p-3 text-center ">
+                                    {visit.name + ' ' + visit.surname}
+                                  </div>
+                                </div>
+                              );
+                            }) : <div className="flex h-[100%] items-center justify-center bg-green-300 "> <Loading/> </div>}
               </div>
             </div>
         </div>

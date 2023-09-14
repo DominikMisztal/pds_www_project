@@ -15,6 +15,7 @@ const VisitDetails: NextPage = () => {
   const [view, setView] = useState<ViewState>("TEETH");
 
   const [teeth, setTeeth] = useState<TeethData>();
+  const [selected, setSelected] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>();
 
   useEffect(() => {
@@ -35,9 +36,12 @@ const VisitDetails: NextPage = () => {
 
       if (res.ok) {
         const data = (await res.json()) as TeethData;
-
+        const tranformedData = {
+          ...data,
+          teeth: data.teeth.map((item) => ({ ...item, index: +item.index })),
+        };
         setIsLoading(false);
-        setTeeth(data);
+        setTeeth(tranformedData);
       }
     };
 
@@ -89,7 +93,11 @@ const VisitDetails: NextPage = () => {
         {view === "TEETH" && (
           <div className="min-h-[calc(100vg-9rem] flex flex-col items-center justify-center gap-12 px-10 lg:min-h-[calc(100vh-11rem)] lg:flex-row">
             <div className="flex max-h-[75%] w-[36rem] max-w-full items-center">
-              <Teeth teeth={teeth}></Teeth>
+              <Teeth
+                teeth={teeth}
+                selectedTooth={selected}
+                setSelected={(index: number) => setSelected(index)}
+              ></Teeth>
             </div>
             <div className="flex h-3/4 w-full items-center justify-center lg:w-[36rem]">
               <Treatments></Treatments>

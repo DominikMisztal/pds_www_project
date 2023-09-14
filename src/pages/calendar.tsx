@@ -81,7 +81,7 @@ const CalendarPage: NextPage = () => {
                       className="flex h-20 w-full items-center border border-solid border-black px-10 text-xs lg:text-base"
                     >
                       <div className="w-1/2 p-3 text-center">
-                        {visit.date.replace(/[TZ]/g, " ")}
+                          {new Date(visit.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </div>
                       <div className="w-1/2 p-3 text-center">
                         {visit.name + " " + visit.surname}
@@ -89,7 +89,7 @@ const CalendarPage: NextPage = () => {
                     
                     </div>
                   );
-                }) : <Loading/>
+                }) : <div className="flex h-[100%] items-center justify-center bg-green-300 "> <Loading/> </div>
                                 
                 }
               </div>

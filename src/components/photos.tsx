@@ -89,12 +89,12 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
     );
   }
   return (
-    <div className="grid h-full w-full auto-cols-max auto-rows-max grid-cols-1 gap-y-2 gap-x-5 overflow-y-scroll p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3  ">
+    <div className="grid h-full w-full overflow-y-scroll gap-3 auto-rows-max sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 bg-green-200 p-2  ">
       {photos.map((item) => {
         return (
           <div
             key={item}
-            className="relative h-25 w-33 rounded-xl border-5 border-blue-400 p-3 "
+            className="relative h-40  rounded-xl border-5 border-blue-400 p-3 "
             onClick={() => openEnlargedPhoto(item)}
           >
             <Image src={item} fill alt="photo" className="rounded-xl"></Image>
@@ -106,26 +106,34 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
         return (
           <div
             key={item}
-            className="relative  h-25 w-33 rounded-xl border-4 border-blue-400 p-3 "
+            className="relative h-40 rounded-xl border-5 border-blue-400 p-3 "
             onClick={() => openEnlargedPhoto(item)}
           >
-            <Image src={item} fill alt="photo" ></Image>
+            <Image src={item} fill alt="photo"  className="rounded-xl"></Image>
           </div>
         );
       })}
 
 
       {enlargedPhoto && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" onClick={closeEnlargedPhoto}>
-         <div className="bg-white p-4 rounded-xl max-h-[75%] max-w-[75%]  ">
-            <img src={enlargedPhoto} alt="enlarged-photo"  className="rounded-xl" style={ { height : "100%",  width: "100%" , aspectRatio: "1/1" } }  />
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-80" onClick={closeEnlargedPhoto}>
+          <div className="relative p-4 rounded-xl h-[75%] w-[75%] ">
+            <Image
+              src={enlargedPhoto}
+              alt="enlarged-photo"
+              fill
+              style={{
+                objectFit: 'contain', // cover, contain, none
+              }}
+              quality={100}
+            />
           </div>
-        </div>
+       </div>
       )}
     
       <div
         {...getRootProps()}
-        className="flex h-24 w-33 border-spacing-4 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-4 border-dashed border-blue-400 p-3 hover:bg-gray-100"
+        className="flex h-40 w-33 border-spacing-4 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-4 border-dashed border-blue-400 p-3 hover:bg-gray-100"
       >
         <input
           type="file"

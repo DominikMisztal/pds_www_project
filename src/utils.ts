@@ -74,14 +74,50 @@ export const randomPatients = [
   },
 ] as Patient[];
 
-// export const randomVisits = [
-//   { index: 0, date: new Date(2023, 3, 21, 19, 20), patient: 0 },
-//   { index: 1, date: new Date(2023, 4, 18, 19, 20), patient: 0 },
-//   { index: 2, date: new Date(2023, 3, 16, 19, 20), patient: 0 },
-//   { index: 3, date: new Date(2023, 2, 12, 19, 20), patient: 0 },
-//   { index: 4, date: new Date(2022, 6, 11, 19, 20), patient: 0 },
-//   { index: 5, date: new Date(2023, 7, 21, 19, 20), patient: 0 },
-// ] as Visit[];
+export const randomVisits = [
+  {
+    index: 0,
+    date: new Date(2023, 3, 21, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+  {
+    index: 1,
+    date: new Date(2023, 4, 18, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+  {
+    index: 2,
+    date: new Date(2023, 3, 16, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+  {
+    index: 3,
+    date: new Date(2023, 2, 12, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+  {
+    index: 4,
+    date: new Date(2022, 6, 11, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+  {
+    index: 5,
+    date: new Date(2023, 7, 21, 19, 20),
+    patientId: 0,
+    doctorId: 0,
+    duration: 10,
+  },
+] as Visit[];
 
 export const calculateAge = (birthday: Date) => {
   const now = new Date();

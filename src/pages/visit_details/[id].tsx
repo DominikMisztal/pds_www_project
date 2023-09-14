@@ -48,15 +48,7 @@ const VisitDetails: NextPage = () => {
             className="z-10 h-full w-64 -translate-x-5 rounded-tr-xl bg-green-300"
             onClick={() => setView("PHOTOS")}
           >
-            {" "}
-            Zdjęcia{" "}
-          </button>
-          <button
-            className="h-full w-64 -translate-x-10 rounded-tr-xl bg-green-400"
-            onClick={() => setView("HISTORY")}
-          >
-            {" "}
-            Historia wizyt
+            Zdjęcia
           </button>
         </div>
         {view === "TEETH" && (
@@ -77,14 +69,6 @@ const VisitDetails: NextPage = () => {
           <div className=" flex h-[calc(100vh-11rem)] items-center justify-center gap-12 bg-green-300">
             <div className="h-3/4 w-3/4 max-w-full bg-gray-50 lg:w-1/2">
               <Photos visitId={+(id as string)}></Photos>
-            </div>
-          </div>
-        )}
-
-        {view === "HISTORY" && (
-          <div className=" flex h-[calc(100vh-11rem)] items-center justify-center gap-12 bg-green-400">
-            <div className="h-3/4 w-3/4 max-w-full  bg-gray-50  lg:w-1/2">
-              TU KIEDYŚ BĘDZIE HISTORIA WIZYT
             </div>
           </div>
         )}

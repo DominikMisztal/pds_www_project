@@ -17,6 +17,14 @@ export type Visit = {
   teeth?: unknown;
 };
 
+export type Operation = {
+  id: number;
+  name: string;
+  type: "TREATMENT" | "DIAGNOSIS";
+  cost: number;
+  color: string;
+};
+
 export const randomPatients = [
   {
     id: 0,

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { forwardRef, useEffect, type HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
-import { type Visit, type Patient } from "~/utils";
+import { type Visit } from "~/utils";
 
 const VisitsList = forwardRef<
   HTMLDivElement,
@@ -27,7 +27,9 @@ const VisitsList = forwardRef<
                 key={index}
                 className="flex h-20 w-full items-center border border-solid border-black px-10 text-xs lg:text-base"
               >
-                <div className="w-1/3 p-3 text-center">{visit.date}</div>
+                <div className="w-1/3 p-3 text-center">
+                  {visit.date.toString().replace(/[TZ]/g, " ")}
+                </div>
                 <div className="w-1/3 p-3 text-center">
                   {visit.name + " " + visit.surname}
                 </div>

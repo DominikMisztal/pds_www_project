@@ -1,12 +1,11 @@
 import { Plus } from "lucide-react";
 import { type NextPage } from "next";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Loading from "~/components/loading";
 import NewVisitForm from "~/components/new_visit";
 import VisitsList from "~/components/visits";
-import { ITEMS_PER_PAGE, Visit } from "~/utils";
+import { ITEMS_PER_PAGE, type Visit } from "~/utils";
 
 const Visits: NextPage = () => {
   const [isUserAddingVisit, setIsUserAddingVisit] = useState<boolean>(false);
@@ -19,11 +18,10 @@ const Visits: NextPage = () => {
   const [ref, inView] = useInView();
 
   useEffect(() => {
-    if (inView) {
+    if (inView && isNextPageAvailable) {
       setIsLoading(true);
-      console.log("inView");
     }
-  }, [inView]);
+  }, [isNextPageAvailable, inView]);
 
   useEffect(() => {
     if (!isLoading || !isNextPageAvailable) {
@@ -93,7 +91,7 @@ const Visits: NextPage = () => {
         {isLoading ? (
           <Loading></Loading>
         ) : (
-          <VisitsList visits={visits}></VisitsList>
+          <VisitsList visits={visits} ref={ref}></VisitsList>
         )}
       </div>
     </>

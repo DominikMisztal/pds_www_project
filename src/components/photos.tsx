@@ -57,6 +57,7 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ data: base64 }),
+            credentials: "include",
           }
         );
 

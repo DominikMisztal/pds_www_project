@@ -29,7 +29,6 @@ const NewVisitForm: React.FC<
 
   useEffect(() => {
     let isNextPageAvailable = false;
-    let pageNumber = 1;
     const controller = new AbortController();
 
     const fetchUsers = async (page: number) => {
@@ -47,7 +46,6 @@ const NewVisitForm: React.FC<
           meta: { page: string };
         };
 
-        pageNumber = +meta + 1;
         isNextPageAvailable = data.length === ITEMS_PER_PAGE;
 
         setPatients((old) => (old ? [...old, ...data] : data));
@@ -92,7 +90,7 @@ const NewVisitForm: React.FC<
             const patient = {
               date: dateRef.current?.valueAsDate
                 ?.toISOString()
-                .substring(0, 10),
+                .replaceAll(/[TZ]/g, " "),
               patient: patientRef.current?.value.split(".")[0],
               duration: lengthRef.current?.valueAsNumber,
             };
@@ -122,13 +120,14 @@ const NewVisitForm: React.FC<
             Data wizyty
           </label>
           <input
-            id="data"
-            type="date"
+            id="date"
+            type="datetime-local"
             required
             className="mt-1 w-full rounded-md border p-2"
             ref={dateRef}
           />
         </div>
+
         <div>
           <label
             htmlFor="patient"

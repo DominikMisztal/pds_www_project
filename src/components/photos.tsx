@@ -30,14 +30,13 @@ const Photos: React.FC<{ visitId: number }> = ({ visitId }) => {
       .then((res) => res.json())
       .then(({ data }: { data: PhotosData[]; meta: number }) => {
         console.log(data);
-        data.forEach((photo) => {
+        data?.forEach((photo) => {
           setPhotos((old) => [
             ...old,
             `http://localhost:3001/${photo.filename}`,
           ]);
-
-          setIsLoading(false);
         });
+        setIsLoading(false);
       })
       .catch((e) => console.error(e));
   }, [visitId]);

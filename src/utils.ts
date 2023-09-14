@@ -9,7 +9,7 @@ export type Patient = {
 };
 
 export type Visit = {
-  index: number;
+  id: number;
   date: string;
   name: string;
   surname: string;

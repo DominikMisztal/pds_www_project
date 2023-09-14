@@ -1,16 +1,22 @@
 import { type NextPage } from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Illnesses from "~/components/illnesses";
+import Loading from "~/components/loading";
 import Photos from "~/components/photos";
 import Teeth from "~/components/teeth";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
 
 const VisitDetails: NextPage = () => {
-  const [view, setView] = useState<ViewState>("TEETH");
-  //BOILERPLATE
-  const visitId = 2;
+  const router = useRouter();
+  const { id } = router.query;
 
+  const [view, setView] = useState<ViewState>("TEETH");
+
+  if (!router.isReady) {
+    return <Loading></Loading>;
+  }
   return (
     <>
       <div className="flex h-16 w-full items-center gap-10 px-10 text-xs lg:text-base">
@@ -30,7 +36,7 @@ const VisitDetails: NextPage = () => {
         </div>
       </div>
 
-      <div className="w-full bg-green-200 pb-10 text-xs">
+      <div className="w-full bg-green-200 text-xs">
         <div className="flex h-4 bg-white">
           <button
             className="z-20 h-full w-56 rounded-tr-xl bg-green-200"
@@ -70,7 +76,7 @@ const VisitDetails: NextPage = () => {
         {view === "PHOTOS" && (
           <div className=" flex h-[calc(100vh-11rem)] items-center justify-center gap-12 bg-green-300">
             <div className="h-3/4 w-3/4 max-w-full bg-gray-50 lg:w-1/2">
-              <Photos visitId={visitId}></Photos>
+              <Photos visitId={+(id as string)}></Photos>
             </div>
           </div>
         )}

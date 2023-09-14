@@ -26,10 +26,7 @@ const VisitDetails: NextPage = () => {
           </div>
         </div>
 
-        <div className="flex h-full w-1/2 items-center justify-end gap-5">
-          <div className="flex items-center justify-center rounded-full bg-gray-400 p-1.5 px-5 text-center">
-            Cena: 600zł
-          </div>
+        <div className="flex h-full w-1/2 items-center justify-end gap-5">    
           <button className="flex items-center  justify-center rounded-full bg-red-400 p-1.5 px-5 text-center">
             Zakończ wizytę
           </button>
@@ -51,13 +48,8 @@ const VisitDetails: NextPage = () => {
             {" "}
             Zdjęcia{" "}
           </button>
-          <button
-            className="h-full w-64 -translate-x-10 rounded-tr-xl bg-green-400"
-            onClick={() => setView("HISTORY")}
-          >
-            {" "}
-            Historia wizyt
-          </button>
+         
+         
         </div>
         {view === "TEETH" && (
           <div className="min-h-[calc(100vg-9rem] flex flex-col items-center justify-center gap-12 px-10 lg:min-h-[calc(100vh-11rem)] lg:flex-row">
@@ -81,13 +73,7 @@ const VisitDetails: NextPage = () => {
           </div>
         )}
 
-        {view === "HISTORY" && (
-          <div className=" flex h-[calc(100vh-11rem)] items-center justify-center gap-12 bg-green-400">
-            <div className="h-3/4 w-3/4 max-w-full  bg-gray-50  lg:w-1/2">
-              TU KIEDYŚ BĘDZIE HISTORIA WIZYT
-            </div>
-          </div>
-        )}
+      
       </div>
     </>
   );

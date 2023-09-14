@@ -1,19 +1,6 @@
 import { useEffect, useState } from "react";
-import { Operation } from "~/utils";
-
-const possibleIlnesses = [
-  "PRÓCHNICA",
-  "KAMIEŃ",
-  "PARADONTOZA",
-  "ZGORZEL",
-  "NADWRAŻLIWOŚĆ",
-  "RAK",
-  "RAK",
-  "RAK",
-  "RAK",
-  "RAK",
-  "RAK",
-] as const;
+import { type Operation } from "~/utils";
+import Loading from "./loading";
 
 const Illnesses: React.FC = () => {
   const [diagnosis, setDiagnosis] = useState<Operation[]>();
@@ -45,6 +32,10 @@ const Illnesses: React.FC = () => {
 
     return () => controller.abort();
   }, []);
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="container flex flex-col">
       <div className="flex h-10 w-full">

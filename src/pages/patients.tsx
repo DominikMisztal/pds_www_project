@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { type NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "~/components/loading";
 import NewPatientForm from "~/components/new_patient";
 import PatientsList from "~/components/patients";

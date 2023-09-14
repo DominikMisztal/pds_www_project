@@ -27,7 +27,7 @@ const Login = () => {
           });
 
           const data = (await res.json()) as { session: string };
-          setCookie("sessionId", data.session, {});
+          setCookie("sessionId", data.session, { sameSite: "lax", path: "/" });
         }}
       >
         <div>

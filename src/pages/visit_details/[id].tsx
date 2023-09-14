@@ -1,22 +1,57 @@
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import Illnesses from "~/components/illnesses";
+import { useEffect, useState } from "react";
+import Treatments from "~/components/treatments";
 import Loading from "~/components/loading";
 import Photos from "~/components/photos";
 import Teeth from "~/components/teeth";
+import { type TeethData } from "~/utils";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
 
 const VisitDetails: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
-
+  const { id, teeth: teethId } = router.query;
   const [view, setView] = useState<ViewState>("TEETH");
 
-  if (!router.isReady) {
+  const [teeth, setTeeth] = useState<TeethData>();
+  const [isLoading, setIsLoading] = useState<boolean>();
+
+  useEffect(() => {
+    if (teethId === undefined) {
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const fetchUsers = async () => {
+      const res = await fetch(
+        `http://localhost:3001/database/teeth${teethId as string}`,
+        {
+          credentials: "include",
+          signal: controller.signal,
+        }
+      );
+
+      if (res.ok) {
+        const data = (await res.json()) as TeethData;
+
+        setIsLoading(false);
+        setTeeth(data);
+      }
+    };
+
+    fetchUsers().catch((e) => {
+      console.error(e);
+    });
+
+    return () => controller.abort();
+  }, [teethId]);
+
+  if (!router.isReady || !teeth) {
     return <Loading></Loading>;
   }
+
   return (
     <>
       <div className="flex h-16 w-full items-center gap-10 px-10 text-xs lg:text-base">
@@ -54,13 +89,10 @@ const VisitDetails: NextPage = () => {
         {view === "TEETH" && (
           <div className="min-h-[calc(100vg-9rem] flex flex-col items-center justify-center gap-12 px-10 lg:min-h-[calc(100vh-11rem)] lg:flex-row">
             <div className="flex max-h-[75%] w-[36rem] max-w-full items-center">
-              <Teeth
-                upperTeeth={new Array<boolean>(16).fill(true)}
-                bottomTeeth={new Array<boolean>(16).fill(true)}
-              ></Teeth>
+              <Teeth teeth={teeth}></Teeth>
             </div>
             <div className="flex h-3/4 w-full items-center justify-center lg:w-[36rem]">
-              <Illnesses></Illnesses>
+              <Treatments></Treatments>
             </div>
           </div>
         )}

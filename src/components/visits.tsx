@@ -34,7 +34,9 @@ const VisitsList = forwardRef<
                   {visit.name + " " + visit.surname}
                 </div>
                 <div className="flex w-1/3 justify-end">
-                  <Link href={`/visit_details/${visit.id}`}>
+                  <Link
+                    href={`/visit_details/${visit.id}?teeth=${visit.teeth}`}
+                  >
                     <button className="h-8 w-16 rounded-full bg-blue-400 lg:h-10 lg:w-28">
                       Szczegóły
                     </button>

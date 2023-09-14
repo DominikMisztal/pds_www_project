@@ -1,11 +1,15 @@
+import { type TeethData } from "~/utils";
+
 const Teeth: React.FC<{
-  upperTeeth: boolean[];
-  bottomTeeth: boolean[];
-}> = ({ upperTeeth, bottomTeeth }) => {
+  teeth: TeethData;
+}> = ({ teeth }) => {
+  const upperTeeth = teeth.teeth.slice(0, 16);
+  const bottomTeeth = teeth.teeth.slice(16, 32);
+
   return (
     <div className="container flex flex-col items-center justify-center gap-1">
       <div className="flex items-center justify-center gap-1">
-        {upperTeeth.map((isToothHealthy, index, teeth) => (
+        {upperTeeth.map(({ operations }, index, teeth) => (
           <div
             key={index}
             className={`flex h-24 w-5 flex-col items-center lg:w-8`}
@@ -13,7 +17,7 @@ const Teeth: React.FC<{
             <div className="h-12 border-b-[2rem] border-l-[0.5rem] border-r-[0.5rem] border-b-white border-l-transparent border-r-transparent lg:border-l-[1rem] lg:border-r-[1rem]"></div>
             <div
               className={`h-12 w-5 border border-solid border-black lg:w-8 ${
-                isToothHealthy ? "bg-white" : "bg-black"
+                !operations ? "bg-white" : "bg-black"
               }`}
             ></div>
             {index < teeth.length / 2

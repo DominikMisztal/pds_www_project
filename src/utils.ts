@@ -14,7 +14,7 @@ export type Visit = {
   name: string;
   surname: string;
   duration: number;
-  teeth?: unknown;
+  teeth: number;
 };
 
 export type Operation = {
@@ -23,6 +23,15 @@ export type Operation = {
   type: "TREATMENT" | "DIAGNOSIS";
   cost: number;
   color: string;
+};
+
+export type TeethData = {
+  id: number;
+  patientId: number;
+  teeth: {
+    index: number;
+    operations?: number;
+  }[];
 };
 
 export const randomPatients = [

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { type Operation } from "~/utils";
 import Loading from "./loading";
 
-const Illnesses: React.FC = () => {
+const Treatments: React.FC = () => {
   const [diagnosis, setDiagnosis] = useState<Operation[]>();
   const [treatments, setTreatments] = useState<Operation[]>();
 
@@ -84,4 +84,4 @@ const Illnesses: React.FC = () => {
   );
 };
 
-export default Illnesses;
+export default Treatments;

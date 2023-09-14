@@ -23,10 +23,11 @@ const Patients: NextPage = () => {
                   {patient.name + " " + patient.surname}{" "}
                 </div>
                 {/* empty div for gap */}
-                <div className="w-3/4"></div>
-                <button className="h-10 w-28 rounded-full bg-blue-400">
+                <div className="w-1/2"></div>
+                <button className="h-11 w-32 rounded-full bg-blue-400">
                   {" "}
-                  Wizyty{" "}
+                  Karta Pacjenta
+                  {" "}
                 </button>
               </div>
             );

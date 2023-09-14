@@ -44,9 +44,9 @@ import React, { useState } from 'react';
 
 
   return (
-    <div className="w-full max-w-md mx-auto mt-8 p-4 border rounded-lg shadow-lg bg-green-300 rounded-xl">
-      <h2 className="text-2xl font-semibold mb-4 ">Select a Date</h2>
-            <div className="grid grid-cols-7 gap-2  bg-green-200 rounded-xl">
+    <div className="w-[90%] mx-auto mt-8 p-4 border rounded-lg shadow-lg bg-green-300 rounded-xl">
+      <h2 className="text-2xl font-semibold   ">Select a Date</h2>
+            <div className="grid grid-cols-7 gap-2 gap-y-11  bg-green-200 rounded-xl">
                 <div className="text-center">Sun</div>
                 <div className="text-center">Mon</div>
                 <div className="text-center">Tue</div>

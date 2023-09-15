@@ -19,6 +19,8 @@ const VisitDetails: NextPage = () => {
   const [selected, setSelected] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>();
 
+  const [price, setPrice] = useState<number>(0);
+
   useEffect(() => {
     if (teethId === undefined) {
       return;
@@ -65,7 +67,25 @@ const VisitDetails: NextPage = () => {
     return () => controller.abort();
   }, [teethId]);
 
-  if (!router.isReady || !teeth || !operations) {
+  useEffect(() => {
+    if (!teeth || !operations) {
+      return;
+    }
+
+    const selectedOperations = teeth?.teeth
+      .map((item) => item.operations)
+      .reduce((prev, next) => [...prev, ...next]);
+
+    let price = 0;
+    for (const operation of selectedOperations) {
+      const found = operations.find((op) => op.id === operation);
+      price += found!.cost;
+    }
+
+    setPrice(price);
+  }, [teeth, operations]);
+
+  if (!router.isReady || !teeth || !operations || isLoading) {
     return <Loading></Loading>;
   }
 
@@ -80,7 +100,7 @@ const VisitDetails: NextPage = () => {
 
         <div className="flex h-full w-1/2 items-center justify-end gap-5">
           <div className="flex items-center justify-center rounded-full bg-gray-400 p-1.5 px-5 text-center">
-            Cena: 600zł
+            {`Cena: ${price}zł`}
           </div>
           <button className="flex items-center  justify-center rounded-full bg-red-400 p-1.5 px-5 text-center">
             Zakończ wizytę

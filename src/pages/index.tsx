@@ -1,7 +1,8 @@
 import { type NextPage } from "next";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  return <div className="bg-white">tu pewnie kiedyś coś będzie</div>;
+  return <div className="bg-white"> </div>;
 };
 
 export default Home;

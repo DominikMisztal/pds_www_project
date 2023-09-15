@@ -28,5 +28,8 @@ const config = {
       },
     ],
   },
+  async redirects() {
+    return [{ source: "/", destination: "/visits", permanent: true }];
+  },
 };
 export default config;

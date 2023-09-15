@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { forwardRef, useEffect, type HTMLAttributes } from "react";
+import { forwardRef, type HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 import { type Visit } from "~/utils";
 
@@ -9,9 +9,6 @@ const VisitsList = forwardRef<
     visits: Visit[] | undefined;
   }
 >(function VisitsList({ className, visits }, ref) {
-  useEffect(() => {
-    console.log(visits);
-  }, [visits]);
   return (
     <div
       className={twMerge(
@@ -35,7 +32,7 @@ const VisitsList = forwardRef<
                 </div>
                 <div className="flex w-1/3 justify-end">
                   <Link
-                    href={`/visit_details/${visit.id}?teeth=${visit.teeth}`}
+                    href={`/visit_details/${visit.id}?teeth=${visit.teeth}&patient=${visit.patient}`}
                   >
                     <button className="h-8 w-16 rounded-full bg-blue-400 lg:h-10 lg:w-28">
                       Szczegóły

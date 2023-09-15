@@ -11,6 +11,7 @@ export type Patient = {
 export type Visit = {
   id: number;
   date: string;
+  patient: number;
   name: string;
   surname: string;
   duration: number;

@@ -11,7 +11,7 @@ type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
 
 const VisitDetails: NextPage = () => {
   const router = useRouter();
-  const { id, teeth: teethId } = router.query;
+  const { id, teeth: teethId, patient } = router.query;
   const [view, setView] = useState<ViewState>("TEETH");
 
   const [operations, setOperations] = useState<Operation[]>();
@@ -102,7 +102,28 @@ const VisitDetails: NextPage = () => {
           <div className="flex items-center justify-center rounded-full bg-gray-400 p-1.5 px-5 text-center">
             {`Cena: ${price}zł`}
           </div>
-          <button className="flex items-center  justify-center rounded-full bg-red-400 p-1.5 px-5 text-center">
+          <button
+            className="flex items-center  justify-center rounded-full bg-red-400 p-1.5 px-5 text-center"
+            onClick={() => {
+              const postTeeth = async () => {
+                const res = await fetch(
+                  `http://localhost:3001/database/teeth${patient as string}`,
+                  {
+                    method: "post",
+                    credentials: "include",
+                    body: JSON.stringify(teeth),
+                    headers: { "Content-Type": "application/json" },
+                  }
+                );
+
+                if (res.ok) {
+                  await router.push("/visits");
+                }
+              };
+
+              postTeeth().catch((e) => console.error(e));
+            }}
+          >
             Zakończ wizytę
           </button>
         </div>

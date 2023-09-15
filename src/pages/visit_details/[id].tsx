@@ -93,11 +93,8 @@ const VisitDetails: NextPage = () => {
     <>
       <div className="flex h-16 w-full items-center gap-10 px-10 text-xs lg:text-base">
         <div className="flex h-full w-1/2 items-center justify-start">
-          <div className="flex items-center justify-center whitespace-nowrap rounded-full bg-gray-400 p-1.5 px-5">
-            Karta pacjenta
-          </div>
+       
         </div>
-
         <div className="flex h-full w-1/2 items-center justify-end gap-5">
           <div className="flex items-center justify-center rounded-full bg-gray-400 p-1.5 px-5 text-center">
             {`Cena: ${price}zł`}
@@ -143,6 +140,7 @@ const VisitDetails: NextPage = () => {
           >
             Zdjęcia
           </button>
+
         </div>
         {view === "TEETH" && (
           <div className="min-h-[calc(100vg-9rem] flex flex-col items-center justify-center gap-12 px-10 lg:min-h-[calc(100vh-11rem)] lg:flex-row">

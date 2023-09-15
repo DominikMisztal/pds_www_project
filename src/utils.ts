@@ -11,10 +11,28 @@ export type Patient = {
 export type Visit = {
   id: number;
   date: string;
+  patient: number;
   name: string;
   surname: string;
   duration: number;
-  teeth?: unknown;
+  teeth: number;
+};
+
+export type Operation = {
+  id: number;
+  name: string;
+  type: "TREATMENT" | "DIAGNOSIS";
+  cost: number;
+  color: string;
+};
+
+export type TeethData = {
+  id: number;
+  patientId: number;
+  teeth: {
+    index: number;
+    operations: number[];
+  }[];
 };
 
 export const randomPatients = [

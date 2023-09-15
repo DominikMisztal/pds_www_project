@@ -5,13 +5,13 @@ const Header: React.FC = () => {
   return (
     <header className="flex h-16 w-full items-center gap-x-16 bg-gray-300 px-4 lg:h-24">
       <div className="flex h-full w-1/2 items-center justify-start gap-5 lg:gap-16 lg:pl-4">
-        <div className="h-10 w-10  lg:h-16 lg:w-16">     
-            <Image
-          src="favicon.svg"
-          width={100}
-          height={100}
-          alt="Picture of the author"
-            />   
+        <div className="h-10 w-10  lg:h-16 lg:w-16">
+          <Image
+            src="/favicon.svg"
+            width={100}
+            height={100}
+            alt="Picture of the author"
+          />
         </div>
       </div>
 
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
           <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
             <Link href="/visits">
               <Image
-                src={"chair.svg"}
+                src={"/chair.svg"}
                 alt="dentist chair"
                 fill
                 className="p-1.5"
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
           <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
             <Link href="/patients">
               <Image
-                src={"patients.svg"}
+                src={"/patients.svg"}
                 alt="patients"
                 fill
                 className="p-1.5"
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
           <div className="relative flex h-10 w-full items-center justify-center bg-green-500 lg:h-[4.5rem]">
             <Link href="/calendar">
               <Image
-                src={"calendar.svg"}
+                src={"/calendar.svg"}
                 alt="calendar"
                 fill
                 className="p-1.5"

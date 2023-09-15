@@ -88,7 +88,7 @@ const Visits: NextPage = () => {
         </button>
       </div>
       <div className="flex h-[calc(100vh-10rem)] w-full items-center justify-center bg-green-300">
-        {isLoading ? (
+        {!visits && isLoading ? (
           <Loading></Loading>
         ) : (
           <VisitsList visits={visits} ref={ref}></VisitsList>

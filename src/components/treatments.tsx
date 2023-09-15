@@ -40,11 +40,7 @@ const Treatments: React.FC<{
           Operacje
         </div>
       </div>
-      <input
-        type="text"
-        className="h-10 text-center"
-        placeholder="Kiedyś wyszukiwanie będzie działać. Kiedyś..."
-      ></input>
+
       <div className="flex h-96 w-full flex-col overflow-y-scroll">
         {areTreatmentsShown
           ? treatments?.map((operation, index) => (

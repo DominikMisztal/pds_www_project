@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { Operation, type TeethData } from "~/utils";
+import { type Operation, type TeethData } from "~/utils";
 
 const Teeth: React.FC<{
   operationsData: Operation[];
@@ -24,14 +24,17 @@ const Teeth: React.FC<{
           >
             <div className="h-12 border-b-[2rem] border-l-[0.5rem] border-r-[0.5rem] border-b-white border-l-transparent border-r-transparent lg:border-l-[1rem] lg:border-r-[1rem]"></div>
             <div
+              style={{
+                backgroundColor: `#${
+                  operations[0]
+                    ? operationsData
+                        .find((item) => item.id === operations[0])!
+                        .color.toUpperCase()
+                    : "ffffff"
+                }`,
+              }}
               className={twMerge(
-                `h-12 w-5 border border-solid border-black bg-white lg:w-8`,
-                operations[0] &&
-                  operationsData.find((item) => item.id === operations[0]) &&
-                  `bg-[#${
-                    operationsData.find((item) => item.id === operations[0])!
-                      .color
-                  }]`
+                `h-12 w-5 border border-solid border-black  lg:w-8`
               )}
             ></div>
             {upperIndex < teeth.length / 2
@@ -56,9 +59,18 @@ const Teeth: React.FC<{
               ? Math.abs(teeth.length / 2 - bottomIndex)
               : Math.abs(teeth.length / 2 - (bottomIndex + 1))}
             <div
-              className={`h-12 w-5 border border-solid border-black lg:w-8 ${
-                !operations[0] ? "bg-white" : "bg-black"
-              }`}
+              style={{
+                backgroundColor: `#${
+                  operations[0]
+                    ? operationsData
+                        .find((item) => item.id === operations[0])!
+                        .color.toUpperCase()
+                    : "ffffff"
+                }`,
+              }}
+              className={twMerge(
+                `h-12 w-5 border border-solid border-black lg:w-8`
+              )}
             ></div>
             <div className="h-12 border-l-[0.5rem] border-r-[0.5rem] border-t-[2rem] border-l-transparent border-r-transparent border-t-white lg:border-l-[1rem] lg:border-r-[1rem]"></div>
           </div>

@@ -4,9 +4,13 @@ import Loading from "./loading";
 
 const Treatments: React.FC<{
   operations: Operation[];
-  teethOperations: { index: number; operations?: number[] }[];
+  updateTeeth: (
+    index: number,
+    teeth: { index: number; operations: number[] }[]
+  ) => void;
+  teethOperations: { index: number; operations: number[] }[];
   selectedTooth: number;
-}> = ({ operations, teethOperations, selectedTooth }) => {
+}> = ({ operations, teethOperations, selectedTooth, updateTeeth }) => {
   const diagnosis = operations.filter((item) => item.type === "DIAGNOSIS");
   const treatments = operations.filter((item) => item.type === "TREATMENT");
 
@@ -45,8 +49,10 @@ const Treatments: React.FC<{
                 className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
                 onClick={() => {
                   teethOperations
-                    .find((tooth) => tooth.index === index)
+                    .find((tooth) => tooth.index === selectedTooth)
                     ?.operations?.push(operation.id);
+
+                  updateTeeth(index, teethOperations);
                 }}
               >
                 {operation.name}
@@ -58,8 +64,10 @@ const Treatments: React.FC<{
                 className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
                 onClick={() => {
                   teethOperations
-                    .find((tooth) => tooth.index === index)
+                    .find((tooth) => tooth.index === selectedTooth)
                     ?.operations?.push(operation.id);
+
+                  updateTeeth(index, teethOperations);
                 }}
               >
                 {operation.name}

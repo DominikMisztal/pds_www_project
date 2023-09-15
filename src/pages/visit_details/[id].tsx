@@ -116,6 +116,14 @@ const VisitDetails: NextPage = () => {
             <div className="flex h-3/4 w-full items-center justify-center lg:w-[36rem]">
               <Treatments
                 operations={operations}
+                updateTeeth={(
+                  index: number,
+                  teeth: { index: number; operations: number[] }[]
+                ) => {
+                  setTeeth((old) =>
+                    old ? { ...old, teeth: teeth } : undefined
+                  );
+                }}
                 teethOperations={teeth.teeth}
                 selectedTooth={selected}
               ></Treatments>

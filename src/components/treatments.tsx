@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { X } from "lucide-react";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { type Operation } from "~/utils";
-import Loading from "./loading";
 
 const Treatments: React.FC<{
   operations: Operation[];
@@ -15,6 +16,9 @@ const Treatments: React.FC<{
   const treatments = operations.filter((item) => item.type === "TREATMENT");
 
   const [areTreatmentsShown, setAreTreatmentsShown] = useState<boolean>(false);
+  const selectedTeethOperations = teethOperations.find(
+    (item) => item.index === selectedTooth
+  )!.operations;
 
   return (
     <div className="container flex flex-col">
@@ -46,11 +50,30 @@ const Treatments: React.FC<{
           ? treatments?.map((operation, index) => (
               <div
                 key={index}
-                className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
+                className={twMerge(
+                  "tap-3 relative flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100",
+                  selectedTeethOperations.find(
+                    (item) => item === operation.id
+                  ) && "bg-blue-200"
+                )}
                 onClick={() => {
-                  teethOperations
-                    .find((tooth) => tooth.index === selectedTooth)
-                    ?.operations?.push(operation.id);
+                  if (
+                    selectedTeethOperations.find(
+                      (item) => item === operation.id
+                    )
+                  ) {
+                    const op = teethOperations.find(
+                      (tooth) => tooth.index === selectedTooth
+                    );
+
+                    op!.operations = op!.operations.filter(
+                      (item) => item !== operation.id
+                    );
+                  } else {
+                    teethOperations
+                      .find((tooth) => tooth.index === selectedTooth)
+                      ?.operations?.push(operation.id);
+                  }
 
                   updateTeeth(index, teethOperations);
                 }}
@@ -61,11 +84,30 @@ const Treatments: React.FC<{
           : diagnosis?.map((operation, index) => (
               <div
                 key={index}
-                className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
+                className={twMerge(
+                  "tap-3 relative flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100",
+                  selectedTeethOperations.find(
+                    (item) => item === operation.id
+                  ) && "bg-blue-200"
+                )}
                 onClick={() => {
-                  teethOperations
-                    .find((tooth) => tooth.index === selectedTooth)
-                    ?.operations?.push(operation.id);
+                  if (
+                    selectedTeethOperations.find(
+                      (item) => item === operation.id
+                    )
+                  ) {
+                    const op = teethOperations.find(
+                      (tooth) => tooth.index === selectedTooth
+                    );
+
+                    op!.operations = op!.operations.filter(
+                      (item) => item !== operation.id
+                    );
+                  } else {
+                    teethOperations
+                      .find((tooth) => tooth.index === selectedTooth)
+                      ?.operations?.push(operation.id);
+                  }
 
                   updateTeeth(index, teethOperations);
                 }}

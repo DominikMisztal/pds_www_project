@@ -121,7 +121,7 @@ const VisitDetails: NextPage = () => {
                   teeth: { index: number; operations: number[] }[]
                 ) => {
                   setTeeth((old) =>
-                    old ? { ...old, teeth: teeth } : undefined
+                    old ? { ...old, teeth: [...teeth] } : undefined
                   );
                 }}
                 teethOperations={teeth.teeth}

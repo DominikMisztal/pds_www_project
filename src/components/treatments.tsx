@@ -2,40 +2,16 @@ import { useEffect, useState } from "react";
 import { type Operation } from "~/utils";
 import Loading from "./loading";
 
-const Treatments: React.FC = () => {
-  const [diagnosis, setDiagnosis] = useState<Operation[]>();
-  const [treatments, setTreatments] = useState<Operation[]>();
+const Treatments: React.FC<{
+  operations: Operation[];
+  teethOperations: { index: number; operations?: number[] }[];
+  selectedTooth: number;
+}> = ({ operations, teethOperations, selectedTooth }) => {
+  const diagnosis = operations.filter((item) => item.type === "DIAGNOSIS");
+  const treatments = operations.filter((item) => item.type === "TREATMENT");
 
   const [areTreatmentsShown, setAreTreatmentsShown] = useState<boolean>(false);
 
-  const [isLoading, setIsLoading] = useState<boolean>();
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/database/operations", {
-        credentials: "include",
-        signal: controller.signal,
-      });
-
-      if (res.ok) {
-        const data = (await res.json()) as Operation[];
-
-        setDiagnosis(data.filter((item) => item.type === "DIAGNOSIS"));
-        setTreatments(data.filter((item) => item.type === "TREATMENT"));
-        setIsLoading(false);
-      }
-    };
-
-    fetchData().catch((e) => console.error(e));
-
-    return () => controller.abort();
-  }, []);
-
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
   return (
     <div className="container flex flex-col">
       <div className="flex h-10 w-full">
@@ -66,7 +42,12 @@ const Treatments: React.FC = () => {
           ? treatments?.map((operation, index) => (
               <div
                 key={index}
-                className="flex h-10 w-full flex-shrink-0 flex-grow-0 items-center justify-center border border-solid border-black bg-blue-100"
+                className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
+                onClick={() => {
+                  teethOperations
+                    .find((tooth) => tooth.index === index)
+                    ?.operations?.push(operation.id);
+                }}
               >
                 {operation.name}
               </div>
@@ -74,7 +55,12 @@ const Treatments: React.FC = () => {
           : diagnosis?.map((operation, index) => (
               <div
                 key={index}
-                className="flex h-10 w-full flex-shrink-0 flex-grow-0 items-center justify-center border border-solid border-black bg-blue-100"
+                className="flex h-10 w-full flex-shrink-0 flex-grow-0 cursor-pointer items-center justify-center border border-solid border-black bg-blue-100"
+                onClick={() => {
+                  teethOperations
+                    .find((tooth) => tooth.index === index)
+                    ?.operations?.push(operation.id);
+                }}
               >
                 {operation.name}
               </div>

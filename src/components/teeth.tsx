@@ -1,11 +1,12 @@
 import { twMerge } from "tailwind-merge";
-import { type TeethData } from "~/utils";
+import { Operation, type TeethData } from "~/utils";
 
 const Teeth: React.FC<{
+  operationsData: Operation[];
   teeth: TeethData;
   selectedTooth: number;
   setSelected: (arg0: number) => void;
-}> = ({ teeth, selectedTooth, setSelected }) => {
+}> = ({ operationsData, teeth, selectedTooth, setSelected }) => {
   const upperTeeth = teeth.teeth.slice(0, 16);
   const bottomTeeth = teeth.teeth.slice(16, 32);
 
@@ -23,9 +24,15 @@ const Teeth: React.FC<{
           >
             <div className="h-12 border-b-[2rem] border-l-[0.5rem] border-r-[0.5rem] border-b-white border-l-transparent border-r-transparent lg:border-l-[1rem] lg:border-r-[1rem]"></div>
             <div
-              className={`h-12 w-5 border border-solid border-black lg:w-8 ${
-                !operations ? "bg-white" : "bg-black"
-              }`}
+              className={twMerge(
+                `h-12 w-5 border border-solid border-black bg-white lg:w-8`,
+                operations[0] &&
+                  operationsData.find((item) => item.id === operations[0]) &&
+                  `bg-[#${
+                    operationsData.find((item) => item.id === operations[0])!
+                      .color
+                  }]`
+              )}
             ></div>
             {upperIndex < teeth.length / 2
               ? Math.abs(teeth.length / 2 - upperIndex)
@@ -50,7 +57,7 @@ const Teeth: React.FC<{
               : Math.abs(teeth.length / 2 - (bottomIndex + 1))}
             <div
               className={`h-12 w-5 border border-solid border-black lg:w-8 ${
-                !operations ? "bg-white" : "bg-black"
+                !operations[0] ? "bg-white" : "bg-black"
               }`}
             ></div>
             <div className="h-12 border-l-[0.5rem] border-r-[0.5rem] border-t-[2rem] border-l-transparent border-r-transparent border-t-white lg:border-l-[1rem] lg:border-r-[1rem]"></div>

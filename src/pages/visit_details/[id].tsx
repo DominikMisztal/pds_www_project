@@ -5,7 +5,7 @@ import Treatments from "~/components/treatments";
 import Loading from "~/components/loading";
 import Photos from "~/components/photos";
 import Teeth from "~/components/teeth";
-import { type TeethData } from "~/utils";
+import { Operation, type TeethData } from "~/utils";
 
 type ViewState = "TEETH" | "PHOTOS" | "HISTORY";
 
@@ -14,6 +14,7 @@ const VisitDetails: NextPage = () => {
   const { id, teeth: teethId } = router.query;
   const [view, setView] = useState<ViewState>("TEETH");
 
+  const [operations, setOperations] = useState<Operation[]>();
   const [teeth, setTeeth] = useState<TeethData>();
   const [selected, setSelected] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>();
@@ -24,7 +25,19 @@ const VisitDetails: NextPage = () => {
     }
 
     const controller = new AbortController();
+    const fetchOperations = async () => {
+      const res = await fetch("http://localhost:3001/database/operations", {
+        credentials: "include",
+        signal: controller.signal,
+      });
 
+      if (res.ok) {
+        const data = (await res.json()) as Operation[];
+
+        setOperations(data);
+        setIsLoading(false);
+      }
+    };
     const fetchUsers = async () => {
       const res = await fetch(
         `http://localhost:3001/database/teeth${teethId as string}`,
@@ -45,14 +58,14 @@ const VisitDetails: NextPage = () => {
       }
     };
 
-    fetchUsers().catch((e) => {
-      console.error(e);
-    });
+    Promise.all([fetchUsers(), fetchOperations()]).catch((e) =>
+      console.error(e)
+    );
 
     return () => controller.abort();
   }, [teethId]);
 
-  if (!router.isReady || !teeth) {
+  if (!router.isReady || !teeth || !operations) {
     return <Loading></Loading>;
   }
 
@@ -94,13 +107,18 @@ const VisitDetails: NextPage = () => {
           <div className="min-h-[calc(100vg-9rem] flex flex-col items-center justify-center gap-12 px-10 lg:min-h-[calc(100vh-11rem)] lg:flex-row">
             <div className="flex max-h-[75%] w-[36rem] max-w-full items-center">
               <Teeth
+                operationsData={operations}
                 teeth={teeth}
                 selectedTooth={selected}
                 setSelected={(index: number) => setSelected(index)}
               ></Teeth>
             </div>
             <div className="flex h-3/4 w-full items-center justify-center lg:w-[36rem]">
-              <Treatments></Treatments>
+              <Treatments
+                operations={operations}
+                teethOperations={teeth.teeth}
+                selectedTooth={selected}
+              ></Treatments>
             </div>
           </div>
         )}

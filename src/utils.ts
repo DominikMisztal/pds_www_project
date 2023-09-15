@@ -30,7 +30,7 @@ export type TeethData = {
   patientId: number;
   teeth: {
     index: number;
-    operations?: number;
+    operations: number[];
   }[];
 };
 
